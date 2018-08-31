@@ -103,6 +103,16 @@
 
 - meta: flush_handlers
 
+- name: Setup local directories for installer - download path
+  win_file:
+    path: "{{ mssql_temp_download_path }}"
+    state: directory
+
+- name: Setup local directories for installer - installer path
+  win_file:
+    path: "{{ mssql_installation_path }}"
+    state: directory
+
 - name: Fetch SQL Media Downloader
   win_get_url:
     url: "{{ mssql_installation_source }}"
