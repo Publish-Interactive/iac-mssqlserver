@@ -71,6 +71,7 @@
       - Domain Users
   tags: service_account
   delegate_to: "{{ domain_controller }}"
+  when: domain_controller != ""
 
 - name: Active Directory | Ensure SQL Agent Service account is present
   win_domain_user:
@@ -87,6 +88,7 @@
       - Domain Users
   delegate_to: "{{ domain_controller }}"
   tags: service_account
+  when: domain_controller != ""
 
 # SQL install may fail if a pending reboot is detected
 # Assuming we are allowed to reboot this step will check for pending reboots
@@ -187,7 +189,7 @@
     Program: sqlservr.exe 
     Ensure: present
     Enabled: True
-    Profile: "Domain"
+    Profile: "{{ mssql_firewall_profile }}"
     Direction: "Inbound"
     Action: Allow
     Description: "Allows the Database Engine to access the network"  
@@ -200,7 +202,7 @@
     Service: SQLBrowser
     Ensure: present
     Enabled: True
-    Profile: "Domain"
+    Profile: "{{ mssql_firewall_profile }}"
     Direction: "Inbound"
     Action: Allow
     Description: "Allows the SQL Server Browser to access the network"  

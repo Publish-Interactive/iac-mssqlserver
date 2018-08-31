@@ -157,3 +157,7 @@ mssql_max_degree_of_parallelism: 0
 # set it to some reasonable value to ensure that the operating system does not request too 
 # much memory from SQL Server, which can affect SQL Server performance.
 mssql_min_server_memory: 0
+
+# Firewall vars
+# Profle can be Domain or Private
+mssql_firewall_profile: Domain
